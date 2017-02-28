@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchWeather } from '../actions/index';
 
-
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   constructor(props){
     super(props);
     this.state = { term: '' };
@@ -11,6 +13,7 @@ export default class SearchBar extends Component {
     // and replace onInputChange with this new bound instance of this function
     // We are overwritting local method onInputChange
     this.onInputChange = this.onInputChange.bind(this);
+    this.onFormSubmit  = this.onFormSubmit.bind(this);
   }
 
   // all DOM event handlers, like onChange, onClick, onHover, onScroll
@@ -22,7 +25,10 @@ export default class SearchBar extends Component {
 
   onFormSubmit(event){
     event.preventDefault();
+    // console.log(this.state.term);
     // We need to go and fetch weather data, http://openweathermap.org/forecast5
+    this.props.fetchWeather(this.state.term);
+    this.setState({ term: '' })
   }
 
   render () {
@@ -41,3 +47,9 @@ export default class SearchBar extends Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchWeather }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar);
