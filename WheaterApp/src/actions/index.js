@@ -12,6 +12,8 @@ export function fetchWeather(city) {
   const url     = `${ROOT_URL}&q=${city},us`;
   const request = axios.get(url);
 
+  console.log('Request:', request)
+
   return {
     type: FETCH_WEATHER,
     payload: request
@@ -26,3 +28,8 @@ export function fetchWeather(city) {
 // Our application state hold all the data and it includes stuff like our weather data
 // we only change our application state through reducers and actions
 // We need to create ActionCreator responsible for API request to go fetch our data
+
+// Action flows enters middlewares -> Enteres Redux-Promise Middleware
+// Does the action have a promise as a payload?
+// If yes stop the payload, if No Let it go through -> Reducers
+// If yes, After Promise resolves, create a new action and send it to reducers
