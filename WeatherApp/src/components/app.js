@@ -6,8 +6,12 @@ import WeatherList from '../containers/weather_list'
 export default class App extends Component {
   render() {
     return (
-      <div className="col-sm-8 col-sm-offset-2">
+      <div>
+        <p></p>
+        <h3 className="text-center">Get Weather</h3>
+        <hr/>
         <SearchBar />
+        <hr/>
         <WeatherList />
       </div>
     );
